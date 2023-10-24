@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Погода</title>
+
+	<script src = 'eel.js'></script>
+	<link rel="icon" type="image/png" href="/iconNW.png">
+	
+	<link rel="stylesheet" href = "style.css">
+</head>
+<body>
+	<input id = 'location' type = 'text' placeholder="Введите название страны и города..." >
+	<center><button id = 'show' onclick = 'display_weather()'>Определить</button></center>
+	<div id = 'info'></div>
+
+	<script>
+		async function display_weather() {
+			let place = document.getElementById('location').value;
+
+			let res = await eel.get_weather(place)();
+			document.getElementById('info').innerHTML = res;
+			voice_response(document.getElementById('info').innerHTML);
+		}
+
+		async function voice_response() {
+			let text = document.getElementById('info').innerHTML;
+			await eel.voice_response(text)();
+		}
+	</script>	
+</body>
+</html>
